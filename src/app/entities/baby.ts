@@ -1,9 +1,14 @@
 export class Baby {
-  private name: string;
-  private gender: string; // Female, Male, Other...
-  private birthDate: Date; // We learn about js dates...
-  private specialNeeds: string; // communication between baby and sitter
-  private address: string;
-  private zipCode: string;
-  private city: string;
+  _id?: number;
+  username: string;
+  password: string;
+  name: string;
+  gender: string; // Female, Male, Other...
+  birthDate: Date; // We learn about js dates...
+  specialNeeds?: string; // communication between baby and sitter
+  address: string;
+  zipCode: string;
+  city: string;
+
+  customerId?: string;
 }

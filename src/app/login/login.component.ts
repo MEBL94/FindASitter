@@ -1,10 +1,13 @@
-import { TempDataService } from './../temp-data.service';
+import { TempDataService } from '../services/temp-data.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MatCheckbox } from '@angular/material/checkbox';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
+import { SittersActions } from '../sitters-list/sitters.actions';
 import { Sitter } from '../entities/sitter';
+import { Baby } from '../entities/baby';
+import { NgRedux } from '@angular-redux/store';
+import { AppState } from '../store';
 
 @Component({
   selector: 'app-login',
@@ -12,41 +15,59 @@ import { Sitter } from '../entities/sitter';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  loginForm: any;
+  loginBabyForm: any;
+  loginSitterForm: any;
+  isBaby: boolean;
+  isProcessing = false;
 
-  constructor(private fb: FormBuilder, private router: Router, 
-    private authService: AuthService, private tmp: TempDataService) { }
-
+  constructor(private fb: FormBuilder,
+    private router: Router,
+    private authService: AuthService,
+    private tmp: TempDataService,
+    private sittersActions: SittersActions,
+    private ngRedux: NgRedux<AppState>) { }
 
   ngOnInit() {
-    this.loginForm = this.fb.group(
+    this.ngRedux.select(state => state.sitters)
+    .subscribe((sitterState) => {
+      this.isBaby = sitterState.isBaby;
+      this.isProcessing = sitterState.isProcessing;
+    });
+
+    this.loginBabyForm = this.fb.group(
       {
-        username: ['', [Validators.required, Validators.minLength(5)] ],
-        password: ['', Validators.required] 
+        username: ['', [Validators.required, Validators.minLength(5)]],
+        password: ['', Validators.required]
       }
-    )
+    );
+
+    this.loginSitterForm = this.fb.group(
+      {
+        username: ['', [Validators.required, Validators.minLength(5)]],
+        password: ['', Validators.required]
+      }
+    );
   }
 
-  onSubmit(loginForm) {
-
-    if (loginForm.valid) {
-
+  onSubmitBaby(form) {
+    if (this.loginBabyForm.valid) {
       // Send request to back-end to validate login.
       this.authService.login().subscribe(result => {
         // Navigate based on a certain condition.
-        console.log("hej");
-
-        this.router.navigate(['/portal/findasitter']);  
+        this.router.navigate(['/portal/findasitter']);
       });
-
-      console.log("hej igen");
-      
-
     } else {
       // Punish user for not filling out fields.
     }
-
-    console.log(loginForm);
+    console.log(this.loginBabyForm);
   }
 
+  onSubmitSitter(form) {
+    if (this.loginSitterForm.valid) {
+      this.authService.login().subscribe(result => {
+        this.router.navigate(['/portal/findababy']);
+      });
+    }
+    console.log(this.loginSitterForm);
+  }
 }

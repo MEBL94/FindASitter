@@ -1,7 +1,13 @@
+<div style="text-align:right; margin-right: 20px;">
+<mat-form-field>
+  <input matInput placeholder="Search sitters" [(ngModel)]="search">
+</mat-form-field>
+</div>
 <div class="card-container">
-  <mat-card class="example-card" *ngFor="let sitter of sitters">
+  <mat-card class="example-card" 
+  *ngFor="let sitterToDisplay of sitters | filterSitters: search">
   
-    <display-sitter [sitter]="sitter"
+    <display-sitter [sitter]="sitterToDisplay"
       (sitterEditClicked)="onSitterEditClicked($event)">
     </display-sitter>
 

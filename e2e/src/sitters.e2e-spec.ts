@@ -23,27 +23,27 @@ describe('sitters-list', () => {
     let page = new AppPage();
     //call login
     page.login();
-browser.sleep(2000);
-console.log("hej");
-    element.all(by.css('.example-card')).then(function(elemsBefore) {
+    browser.sleep(2000);
+    console.log("hej");
+    element.all(by.css('.example-card')).then(function (elemsBefore) {
       // elemsAfter will be a number specifying how many elements of .yourCssClassHere there are in the page.
 
 
       let sittersCountBefore = elemsBefore.length;
-      element(by.id('menuRegister')).click();
+      element(by.id('registerSitter')).click();
       // element(by.id('usernameInput')) == $$()
 
       // browser.sleep(2000);
       $$('#usernameInput').sendKeys('Simon');
       $$('#passwordInput').sendKeys('Simons Password');
       $$('#nameInput').sendKeys('Simon Ryom');
-// console.log(elemsBepfore.length);
+      // console.log(elemsBepfore.length);
       $$('#registerSubmit').click();
-// browser.sleep(4000);
+      // browser.sleep(4000);
       page.login();
-      element.all(by.css('.example-card')).then(function(elemsAfter) {
+      element.all(by.css('.example-card')).then(function (elemsAfter) {
         let sittersCountAfter = elemsAfter.length;
-        expect(sittersCountAfter-sittersCountBefore).toBe(1);
+        expect(sittersCountAfter - sittersCountBefore).toBe(1);
       });
     });
   });

@@ -11,6 +11,6 @@ describe('workspace-project App', () => {
   it('should display welcome message', () => {
     page.navigateTo();
     // browser.sleep(4000);
-    expect(page.getParagraphText()).toEqual('Welcome to Find A Sitter!');
+    expect(page.getParagraphText()).toEqual('Welcome to Find a Sitter!');
   });
 });
