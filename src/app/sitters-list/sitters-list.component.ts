@@ -4,6 +4,7 @@ import { Sitter } from '../entities/sitter';
 import { NgRedux } from '@angular-redux/store';
 import { AppState } from '../store';
 import { SitterService } from '../services/sitter.service/sitter.service';
+import { SittersActions} from '../sitters-list/sitters.actions';
 
 @Component({
   selector: 'app-sitters-list',
@@ -18,7 +19,8 @@ export class SittersListComponent implements OnInit {
   birthday = new Date(2000, 10, 1);
   
   constructor(private ngRedux: NgRedux<AppState>,
-    private sitterService: SitterService) { 
+    private sitterService: SitterService,
+    private sittersActions: SittersActions) { 
     // this.sitters = tempData.sitters;
   }
 
@@ -27,14 +29,19 @@ export class SittersListComponent implements OnInit {
       this.sitters = data.sitters;
     });
 
-    this.sitterService.getSitters().subscribe((responseFromApi: any[]) => {
-      const myData = responseFromApi.filter(x => x.customerId === 'chrk');
-      console.log(myData);
-    });
-  }
+  //   this.sitterService.getSitters().subscribe((responseFromApi: any[]) => {
+  //     const myData = responseFromApi.filter(x => x.customerId === 'chrk');
+  //     console.log(myData);
+  //     return responseFromApi;
+  //   });
+   }
 
   onSitterEditClicked(sitter: Sitter) {
     console.log("someone clicked sitter", sitter);
+  }
+
+  getSitters() {
+    return this.sittersActions.getSitters();
   }
 
 }
