@@ -1,0 +1,74 @@
+<div class="container">
+  <button class="btn btn-primary" (click)="sittersActions.setType(true)">Login as baby</button>
+  <button class="btn btn-primary" (click)="sittersActions.setType(false)">Login as sitter</button>
+  <br />
+  <br />
+  <div *ngIf="isBaby" class="alert alert-info">You are logging in as a baby</div>
+  <div *ngIf="!isBaby && isBaby !== undefined" class="alert alert-info">You are logging in as a sitter</div>
+  <br />
+  <form novalidate [formGroup]="loginBabyForm" *ngIf="isBaby" (ngSubmit)="onSubmitBaby(loginBabyForm)">
+    <p>
+      Username
+    </p>
+    <div class="form-group">
+      <input class="form-control" type="text" formControlName="username" id="username">
+      <div class="alert alert-danger" *ngIf="loginBabyForm.controls.username.touched 
+      && loginBabyForm.controls.username.errors?.required">
+        Username must be filled out
+      </div>
+      <div class="alert alert-danger" *ngIf="loginBabyForm.controls.username.dirty
+       && loginBabyForm.controls.username.errors?.minlength">
+        Username must be 5 characters
+      </div>
+
+    </div>
+
+    <p>
+      Password
+    </p>
+    <div class="form-group">
+      <input class="form-control" type="password" formControlName="password" id="password">
+      <div class="alert alert-danger" *ngIf="loginBabyForm.controls.password.touched
+       && loginBabyForm.controls.password.errors?.required">
+        Password must be filled out
+      </div>
+
+      <mat-checkbox>Check me!</mat-checkbox>
+    </div>
+    <button class="btn btn-primary" id="btnLogin">Login</button>
+
+  </form>
+
+  <form novalidate [formGroup]="loginSitterForm" *ngIf="!isBaby" (ngSubmit)="onSubmitSitter(loginSitterForm)">
+      <p>
+        Username
+      </p>
+      <div class="form-group">
+        <input class="form-control" type="text" formControlName="username" id="username">
+        <div class="alert alert-danger" *ngIf="loginSitterForm.controls.username.touched 
+        && loginSitterForm.controls.username.errors?.required">
+          Username must be filled out
+        </div>
+        <div class="alert alert-danger" *ngIf="loginSitterForm.controls.username.dirty
+         && loginSitterForm.controls.username.errors?.minlength">
+          Username must be 5 characters
+        </div>
+  
+      </div>
+  
+      <p>
+        Password
+      </p>
+      <div class="form-group">
+        <input class="form-control" type="password" formControlName="password" id="password">
+        <div class="alert alert-danger" *ngIf="loginSitterForm.controls.password.touched
+         && loginSitterForm.controls.password.errors?.required">
+          Password must be filled out
+        </div>
+  
+        <mat-checkbox>Check me!</mat-checkbox>
+      </div>
+      <button class="btn btn-primary" id="btnLogin">Login</button>
+  
+    </form>
+</div>
