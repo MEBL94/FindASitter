@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { SitterApiService } from './sitter.service';
+import { SitterService } from './sitter.service';
 
 describe('SitterApiService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [SitterApiService]
+      providers: [SitterService]
     });
   });
 
-  it('should be created', inject([SitterApiService], (service: SitterApiService) => {
+  it('should be created', inject([SitterService], (service: SitterService) => {
     expect(service).toBeTruthy();
   }));
 });

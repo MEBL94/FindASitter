@@ -1,15 +1,46 @@
-<div style="text-align:right; margin-right: 20px;">
-<mat-form-field>
-  <input matInput placeholder="Search sitters" [(ngModel)]="search">
-</mat-form-field>
-</div>
-<div class="card-container">
-  <mat-card class="example-card" 
-  *ngFor="let sitterToDisplay of getSitters() | filterSitters: search">
-  
-    <display-sitter [sitter]="sitterToDisplay"
-      (sitterEditClicked)="onSitterEditClicked($event)">
-    </display-sitter>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h1>Sitters</h1>
+    </div>
+  </div>
 
-  </mat-card>
+  <!-- <div class="row" *ngIf="sitters && sitters.length">
+    <div class="col-xs-12">
+      <button class="btn btn-primary" (click)="createSitter()">
+        Create new sitter
+      </button>
+    </div>
+  </div> -->
+
+  <div *ngIf="sitters && sitters.length">
+    <table class="table table-bordered table-striped table-condensed">
+      <thead>
+        <tr>
+          <th>Sitter name</th>
+          <th>Gender</th>
+          <th>Birthdate</th>
+          <th>No criminal record</th>
+          <th>No child record</th>
+          <th>Hourly wage</th>
+          <th>Address</th>
+          <th>Zip code</th>
+          <th>City</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let sitter of sitters">
+          <td>{{sitter.name}}</td>
+          <td>{{sitter.gender}}</td>
+          <td>{{sitter.birthDate}}</td>
+          <td>{{sitter.noCriminalRecord | transformBoolean}}</td>
+          <td>{{sitter.noChildRecord | transformBoolean}}</td>
+          <td>{{sitter.hourlyWage}}</td>
+          <td>{{sitter.address}}</td>
+          <td>{{sitter.zipCode}}</td>
+          <td>{{sitter.city}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

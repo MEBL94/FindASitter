@@ -11,12 +11,12 @@ import { BabyService } from '../services/baby.service/baby.service';
 export class BabiesActions {
 
   // We dependency inject the redux library.
-  constructor (
+  constructor(
     private ngRedux: NgRedux<AppState>,
     private babyService: BabyService) {
-    }
+  }
 
-    // This gives a strongly typed way to call an action.
+  // This gives a strongly typed way to call an action.
   static GET_BABY = 'GET_BABY';
   static GET_BABIES = 'GET_BABIES';
   static SET_REGISTER_BABYTYPE = 'SET_REGISTER_BABYTYPE';
@@ -27,7 +27,7 @@ export class BabiesActions {
 
   getBabies() {
     this.ngRedux.dispatch({
-      type: BabiesActions.GET_BABIES 
+      type: BabiesActions.GET_BABIES
     });
     this.babyService.getBabies();
   }
@@ -42,7 +42,6 @@ export class BabiesActions {
   createBaby(baby: Baby): void {
     console.log('1');
 
-    // This action is called to set a spinner, showing system is working.
     this.ngRedux.dispatch({
       type: BabiesActions.CREATE_BABY,
       payload: baby
@@ -71,11 +70,18 @@ export class BabiesActions {
     console.log('2');
   }
 
-  deleteBaby(babyId: number): void {
-    this.ngRedux.dispatch({
-      type: BabiesActions.DELETE_BABY,
-      payload: babyId
-    });
-    this.babyService.deleteBaby(babyId)
+  deleteBaby(babyId: number) {
+
+    this.babyService.deleteBaby(babyId).subscribe(responseFromApi => {
+
+      this.ngRedux.dispatch({
+        type: BabiesActions.DELETE_BABY,
+        payload: babyId
+      }), error => {
+        console.log('3 error');
+      }
+      console.log('2');
+      return responseFromApi;
+    })
   }
 }

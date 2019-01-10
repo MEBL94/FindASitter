@@ -28,6 +28,14 @@ import { FilterSitters } from './sitters-list/sitters.filter';
 import { BabiesListComponent } from './babies-list/babies-list.component';
 import { FilterBabies } from './babies-list/babies.filter';
 import { DisplayBabyComponent } from './portal/display-baby/display-baby.component';
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { FakeBackendService } from './services/fake-backend.service';
+import { BabyService } from './services/baby.service/baby.service';
+import { SitterService } from './services/sitter.service/sitter.service';
+import { SittersActions } from './sitters-list/sitters.actions';
+import { BabiesActions } from './babies-list/babies.actions';
+import { AuthService } from './auth/auth.service';
+import { TransformBoolean } from './sitters-list/sitters-transform-boolean.filter';
 
 @NgModule({
   declarations: [
@@ -43,6 +51,7 @@ import { DisplayBabyComponent } from './portal/display-baby/display-baby.compone
     DisplaySitterComponent,
     FilterSitters,
     FilterBabies,
+    TransformBoolean,
     BabiesListComponent,
     DisplayBabyComponent,
   ],
@@ -58,7 +67,7 @@ import { DisplayBabyComponent } from './portal/display-baby/display-baby.compone
     MatSelectModule,
     NgReduxModule, NgReduxRouterModule.forRoot()
   ],
-  providers: [],
+  providers: [BabyService, SitterService, SittersActions, BabiesActions, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

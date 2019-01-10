@@ -8,6 +8,7 @@ import { AppState } from '../store';
 import { Sitter } from '../entities/sitter';
 import { Baby } from '../entities/baby';
 import { BabiesActions} from '../babies-list/babies.actions';
+import { SitterService } from '../services/sitter.service/sitter.service';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -87,6 +88,7 @@ export class RegisterComponent {
 
     if (this.registerSitterForm.valid) {
     this.sittersActions.createSitter(sitter);
+    console.log(sitter);
     this.router.navigate(['/login']);
     }
   }

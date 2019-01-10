@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { Baby } from "src/app/entities/baby";
 import { BabiesActions } from "src/app/babies-list/babies.actions";
+import { BabyService } from "src/app/services/baby.service/baby.service";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
   selector: 'display-baby',
@@ -11,13 +13,15 @@ export class DisplayBabyComponent implements OnInit {
   @Input() baby: Baby;
   @Output() babyEditClicked: EventEmitter<any> = new EventEmitter<any>();
   
-  constructor(private babiesActions: BabiesActions) { }
+  constructor(private babiesActions: BabiesActions,
+    private babyService: BabyService,
+    private http: HttpClient) { }
 
   ngOnInit() {
   }
 
-  onDeleteClick() {
-    this.babiesActions.deleteBaby(this.baby._id);
+  onDeleteClick(baby : Baby) {
+  this.babiesActions.deleteBaby(baby._id)  
   }
 
   onEditClick() {

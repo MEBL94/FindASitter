@@ -1,15 +1,42 @@
-<mat-card-header>
-  <div mat-card-avatar class="example-header-image"></div>
-  <mat-card-title>{{sitter.name}}</mat-card-title>
-  <mat-card-subtitle>{{sitter.gender}}</mat-card-subtitle>
-</mat-card-header>
-<img mat-card-image src="../../../assets/images/sitterWithABaby.jpg" alt="Photo of a Shiba Inu">
-<mat-card-content>
-  <p>
-    My hourly wage is: {{sitter.hourlyWage}}
-  </p>
-</mat-card-content>
-<mat-card-actions>
-  <button mat-button (click)="onEditClick()">Edit</button>
-  <button mat-button (click)="onDeleteClick()">Delete</button>
-</mat-card-actions>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h1>Sitters</h1>
+    </div>
+  </div>
+  
+  <!-- <div class="row" *ngIf="sitters && sitters.length"> -->
+    
+  <!-- </div> -->
+  
+  <!-- <div *ngIf="sitters && sitters.length"> -->
+    <table class="table table-bordered table-striped table-condensed">
+      <thead>
+        <tr>
+          <th>Sitter name</th>
+          <th>Gender</th>
+          <th>Birthdate</th>
+          <th>No criminal record</th>
+          <th>No child record</th>
+          <th>Hourly wage</th>
+          <th>Address</th>
+          <th>Zip code</th>
+          <th>City</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let sitter of sitters">
+          <td>{{sitter.name}}</td>
+          <td>{{sitter.gender}}</td>
+          <td>{{sitter.birthDate}}</td>
+          <td>{{sitter.noCriminalRecord}}</td>
+          <td>{{sitter.noChildRecord}}</td>
+          <td>{{sitter.hourlyWage}}</td>
+          <td>{{sitter.address}}</td>
+          <td>{{sitter.zipCode}}</td>
+          <td>{{sitter.city}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

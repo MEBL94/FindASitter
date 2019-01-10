@@ -10,14 +10,16 @@ import { BabyService } from '../services/baby.service/baby.service';
   styleUrls: ['./babies-list.component.scss']
 })
 export class BabiesListComponent implements OnInit {
-  constructor(private ngRedux: NgRedux<AppState>,
-    private babyService: BabyService,
-    private babies: Baby[]) { }
+  babies : Baby[]
+
+  constructor(private babyService: BabyService) { }
+
 
   ngOnInit() {
-    this.ngRedux.select(x => x.babies).subscribe((data) => {
-      this.babies = data.babies;
-  });
-}
-
-}
+    this.babyService.getBabies().subscribe(responseFromApi =>{
+      const myData = responseFromApi.filter(x => x.customerId === 'mathias');
+      this.babies = myData;
+      console.log(myData);
+     })
+    }
+  }

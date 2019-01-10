@@ -1,9 +1,14 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Baby } from '../../entities/baby';
 import { Observable } from 'rxjs';
 
-const API_URL = "https://localhost:5001/api/baby/"
+const API_URL = "http://angular2api2.azurewebsites.net/api/internships/";
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type':  'application/json'
+  })
+};
 
 @Injectable({
   providedIn: 'root'
@@ -11,23 +16,24 @@ const API_URL = "https://localhost:5001/api/baby/"
 export class BabyService {
   constructor(private http: HttpClient) { }
 
-  getBabies() {
-    return this.http.get(API_URL);
+  getBabies() : Observable<Baby[]>{
+    return this.http.get<Baby[]>(API_URL, httpOptions);
   }
 
-  getBaby(id: number) {
-    return this.http.get(API_URL + id.toString());
+  getBaby(id: number) : Observable<Baby> {
+    return this.http.get<Baby>(API_URL + id, httpOptions);
   }
 
-  createBaby(baby: Baby) {
-    return this.http.post(API_URL, baby);
+  createBaby(baby: Baby) : Observable<Baby> {
+    baby.customerId = "mathias";
+    return this.http.post<Baby>(API_URL, baby, httpOptions);
   }
 
-  updateBaby(baby: Baby) {
-    return this.http.put(API_URL, baby);
+  updateBaby(baby: Baby) : Observable<Baby> {
+    return this.http.put<Baby>(API_URL, baby, httpOptions);
   }
 
-  deleteBaby(id: number) {
-      return this.http.delete(API_URL + id.toString());
+  deleteBaby(id: number) : Observable<Baby> {
+      return this.http.delete<Baby>(API_URL + id, httpOptions);
   }
 }

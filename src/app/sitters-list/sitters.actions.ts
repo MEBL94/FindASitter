@@ -4,7 +4,6 @@ import { NgRedux } from '@angular-redux/store';
 import { AppState } from './../store';
 import { Sitter } from '../entities/sitter';
 import { SitterService } from '../services/sitter.service/sitter.service';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +16,6 @@ export class SittersActions {
     private ngRedux: NgRedux<AppState>,
     private sitterService: SitterService) {}
   
-  private sitters: Sitter[] = [];
-
     // This gives a strongly typed way to call an action.
   static GET_ALL_SITTERS = 'GET_ALL_SITTERS';
   static SET_REGISTER_BABYTYPE = 'SET_REGISTER_BABYTYPE';
@@ -35,8 +32,7 @@ export class SittersActions {
   }
 
   getSitters() {
-    this.sitterService.getSitters()
-    .subscribe(data => this.sitters = data);
+    return this.sitterService.getSitters();
   }
 
   createSitter(sitter: Sitter): void {
@@ -58,7 +54,7 @@ export class SittersActions {
     console.log('2');
   }
 
-  deleteSitter(sitterId: string): void {
+  deleteSitter(sitterId: number): void {
     this.ngRedux.dispatch({
       type: SittersActions.DELETE_SITTER,
       payload: sitterId
